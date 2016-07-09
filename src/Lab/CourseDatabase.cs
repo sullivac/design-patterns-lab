@@ -53,6 +53,12 @@ namespace Lab
                 CourseLevel = 401,
                 CourseName = "JavaScript 4",
                 CourseId = "JS401"
+            },
+            new Course
+            {
+                CourseLevel = 491,
+                CourseName =  "Senior Project",
+                CourseId = "SP491"
             }
         };
 

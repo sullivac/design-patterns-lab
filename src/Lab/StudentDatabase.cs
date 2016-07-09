@@ -33,6 +33,13 @@ namespace Lab
                 LastName = "Belcher",
                 SemesterHours = 120,
                 UserId = "SEN"
+            },
+            new Student
+            {
+                FirstName = "Susan",
+                LastName = "Belcher",
+                SemesterHours = 120,
+                UserId = "SEN2"
             }
         };
 

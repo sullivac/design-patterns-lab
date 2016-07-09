@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Lab
 {
@@ -18,24 +19,70 @@ namespace Lab
             Student freshman = studentDatabase.Students.FirstOrDefault(s => s.UserId == "FRE");
             if (freshman != null)
             {
-                freshman.AddCourse(courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "HTML101"));
-                freshman.AddCourse(courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "CSS301"));
+                AddCourse(freshman, courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "HTML101"));
+                AddCourse(freshman, courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "CSS301"));
             }
 
             //300 level courses
             Student junior = studentDatabase.Students.FirstOrDefault(s => s.UserId == "JUN");
             if (junior != null)
             {
-                junior.AddCourse(courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "HTML101"));
-                junior.AddCourse(courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "CSS401"));
+                AddCourse(junior, courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "HTML101"));
+                AddCourse(junior, courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "CSS401"));
             }
 
             //400 level courses
             Student senior = studentDatabase.Students.FirstOrDefault(s => s.UserId == "SEN");
             if (senior != null)
             {
-                senior.AddCourse(courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "HTML101"));
-                senior.AddCourse(courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "CSS401"));
+                AddCourse(senior, courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "CSS401"));
+                AddCourse(senior, courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "JS401"));
+                AddCourse(senior, courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "SP491"));
+            }
+
+            Student anotherSenior = studentDatabase.Students.FirstOrDefault(s => s.UserId == "SEN2");
+            if (senior != null)
+            {
+                AddCourse(anotherSenior, courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "CSS401"));
+                AddCourse(anotherSenior, courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "JS401"));
+                AddCourse(anotherSenior, courseDatabase.Courses.SingleOrDefault(course => course.CourseId == "SP491"));
+            }
+        }
+
+        public static void AddCourse(Student student, Course course)
+        {
+            bool isValid = true;
+            int courseLevel = course.CourseLevel;
+            int semesterHours = student.SemesterHours;
+
+            if (courseLevel >= 200 && courseLevel < 300)
+            {
+                if (semesterHours < 32)
+                {
+                    Console.WriteLine("Need a sophmore standing");
+                    isValid = false;
+                }
+            }
+            else if (courseLevel >= 300 && courseLevel < 400)
+            {
+                if (semesterHours < 64)
+                {
+                    Console.WriteLine("Need a junior standing");
+                    isValid = false;
+                }
+            }
+            else
+            {
+                if (semesterHours < 96)
+                {
+                    Console.WriteLine("Need a senior standing");
+                    isValid = false;
+                }
+            }
+
+            if (isValid)
+            {
+                student.AddCourse(course);
             }
         }
     }

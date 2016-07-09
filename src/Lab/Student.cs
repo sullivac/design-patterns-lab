@@ -1,4 +1,6 @@
-﻿namespace Lab
+﻿using System.Collections.Generic;
+
+namespace Lab
 {
     public class Student
     {
@@ -7,40 +9,11 @@
         public int SemesterHours { get; set; }
         public string UserId { get; set; }
 
+        private List<Course> _courses = new List<Course>();
+
         public void AddCourse(Course course)
         {
-            bool isValid = true;
-            int courseLevel = course.CourseLevel;
-
-            if (courseLevel >= 200 && courseLevel < 300)
-            {
-                if (SemesterHours < 32)
-                {
-                    new Alert("Need a sophmore standing", "warning");
-                    isValid = false;
-                }
-            }
-            else if (courseLevel >= 300 && courseLevel < 400)
-            {
-                if (SemesterHours < 64)
-                {
-                    new Alert("Need a junior standing", "warning");
-                    isValid = false;
-                }
-            }
-            else
-            {
-                if (SemesterHours < 96)
-                {
-                    new Alert("Need a senior standing", "warning");
-                    isValid = false;
-                }
-            }
-
-            if (isValid)
-            {
-                
-            }
+            _courses.Add(course);
         }
     }
 }
