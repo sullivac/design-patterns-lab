@@ -4,7 +4,7 @@ namespace Lab
 {
     public class CourseDatabase
     {
-        private Course[] _courses =
+        private readonly Course[] _courses =
         {
             new Course
             {

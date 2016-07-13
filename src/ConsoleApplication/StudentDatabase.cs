@@ -4,42 +4,48 @@ namespace Lab
 {
     public class StudentDatabase
     {
-        private List<Student> _students = new List<Student>
+        private readonly List<Student> _students = new List<Student>
         {
             new Student
             {
                 FirstName = "Tom",
                 LastName = "Sites",
                 UserId = "FRE",
-                SemesterHours = 20
+                SemesterHours = 20,
+                EmailAdress = "tsites@gmail.com"
             },
             new Student
             {
                 FirstName = "Peggy",
                 LastName = "Thompson",
                 UserId = "SOP",
-                SemesterHours = 40
+                SemesterHours = 40,
+                EmailAdress = "peggy1218@aol.com"
             },
             new Student
             {
                 FirstName = "Teresa",
                 LastName = "Ramos",
                 SemesterHours = 70,
-                UserId = "JUN"
+                UserId = "JUN",
+                EmailAdress = "tramos@gmail.com"
             },
             new Student
             {
                 FirstName = "Jeffrey",
                 LastName = "Belcher",
                 SemesterHours = 120,
-                UserId = "SEN"
+                UserId = "SEN",
+                EmailAdress = "belcherisawesome@gmail.com"
             },
             new Student
             {
                 FirstName = "Susan",
                 LastName = "Belcher",
                 SemesterHours = 120,
-                UserId = "SEN2"
+                UserId = "SEN2",
+                EmailAdress = "belcher@foodnetwork.com"
+
             }
         };
 

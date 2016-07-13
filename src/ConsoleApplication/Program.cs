@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 
 namespace Lab
 {
@@ -50,21 +52,60 @@ namespace Lab
             }
 
             //junor
-            studentDatabase.AddStudent(new Student
+            Student robertMapel = new Student
             {
                 SemesterHours = 64,
                 LastName = "Mapel",
                 FirstName = "Robert",
-                UserId = "RMAPLE"
-            });
+                UserId = "RMAPLE",
+                EmailAdress = "bob.maple@gmail.com"
+            };
 
-            studentDatabase.AddStudent(new Student
+            if (robertMapel.LastName.Length > 0 && robertMapel.FirstName.Length > 0)
+            {
+                studentDatabase.AddStudent(robertMapel);
+                if (robertMapel.EmailAdress.Length > 0 && robertMapel.EmailAdress.Contains("@"))
+                {
+                    //The SMTP server isn't available. Can we create a class around this logic?
+                    //using (SmtpClient smtpClient = new SmtpClient())
+                    //{
+                    //    smtpClient.Timeout = 3000;
+                    //    smtpClient.Credentials = new NetworkCredential();
+                    //    smtpClient.Send(
+                    //        "registration@centareu.edu", 
+                    //        robertMapel.EmailAddress, 
+                    //        "Registration Complete",
+                    //        "");
+                    //}    
+                }  
+            }
+
+           Student jamesSpruce = new Student
             {
                 SemesterHours = 0,
                 LastName = "Spruce",
                 FirstName = "James",
-                UserId = "JSPRUCE"
-            });
+                UserId = "JSPRUCE",
+                EmailAdress = "james.spruce@yahoo.com"
+            };
+            if (jamesSpruce.LastName.Length > 0 && jamesSpruce.FirstName.Length > 0)
+            {
+                studentDatabase.AddStudent(jamesSpruce);
+                if (jamesSpruce.EmailAdress.Length > 0 && jamesSpruce.EmailAdress.Contains("@"))
+                {
+                    //The SMTP server isn't available. Can we create a class around this logic?
+                    //using (SmtpClient smtpClient = new SmtpClient())
+                    //{
+                    //    smtpClient.Timeout = 3000;
+                    //    smtpClient.Credentials = new NetworkCredential();
+                    //    smtpClient.Send(
+                    //        "registration@centareu.edu", 
+                    //        jamesSpruce.EmailAdress, 
+                    //        "Registration Complete",
+                    //        "");
+                    //}    
+                }  
+            }
         }
 
         public static void AddCourse(Student student, Course course)
