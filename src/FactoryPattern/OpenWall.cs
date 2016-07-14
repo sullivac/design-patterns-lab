@@ -1,24 +1,21 @@
 using System;
+
 namespace FactoryPattern
 {
     public class OpenWall : Wall
     {
-        public OpenWall(int id, Room roomOne, Room roomTwo)
-            : base(id)
+        private readonly IMovePlayer destination;
+
+        public OpenWall(IMovePlayer destination)
         {
-            RoomOne = roomOne;
-            RoomTwo = roomTwo;
+            if (destination == null) { throw new ArgumentNullException("destination", "destination is null."); }
+
+            this.destination = destination;
         }
 
-        public Room RoomOne { get; private set; }
-
-        public Room RoomTwo { get; private set; }
-
-        public override void Move(Player player)
+        protected override void MoveInternal(IMovable movable)
         {
-            if (player == null) { throw new ArgumentNullException("player", "player is null."); }
-
-            player.MoveBetween(RoomOne, RoomTwo);
+            movable.MoveTo(destination);
         }
     }
 }

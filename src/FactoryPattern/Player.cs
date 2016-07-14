@@ -3,75 +3,91 @@ using System.ComponentModel;
 
 namespace FactoryPattern
 {
-    public class Player
+    public class Player : IMovable
     {
-        private Room current;
-        private readonly Action<Room> onCurrentRoomChanged;
-        private readonly Action onDone;
-        private readonly Action onWait;
-        
-        public Player(Action<Room> onCurrentRoomChanged, Action onWait, Action onDone)
+        private IMovePlayer current;
+        private Action onCurrentChanged;
+        private Action onDone;
+        private Action onWait;
+
+        public Player(IMovePlayer start)
         {
-            this.onCurrentRoomChanged = onCurrentRoomChanged;
-            this.onWait = onWait;
-            this.onDone = onDone;
+            current = start;
+            onCurrentChanged = () => { };
+            onDone = () => { };
+            onWait = () => { };
         }
 
-        public Room Current
+        public int CurrentPosition
         {
-            get { return current; }
+            get { return current.Id; }
+        }
+
+        public Action OnCurrentChanged
+        {
             set
             {
                 if (value == null) { throw new ArgumentNullException("value", "value is null."); }
 
-                current = value;
-
-                onCurrentRoomChanged(value);
+                onCurrentChanged = value;
             }
         }
 
-        public void Done()
+        public Action OnDone
         {
-            onDone();
+            set
+            {
+                if (value == null) { throw new ArgumentNullException("value", "value is null."); }
+
+                onDone = value;
+            }
+        }
+
+        public Action OnWait
+        {
+            set
+            {
+                if (value == null) { throw new ArgumentNullException("value", "value is null."); }
+
+                onWait = value;
+            }
         }
 
         public void MoveNorth()
         {
-            Current.MoveNorth(this);
+            current.North.Move(this);
         }
 
         public void MoveEast()
         {
-            Current.MoveEast(this);
+            current.East.Move(this);
         }
 
         public void MoveSouth()
         {
-            Current.MoveSouth(this);
+            current.South.Move(this);
         }
 
         public void MoveWest()
         {
-            Current.MoveWest(this);
+            current.West.Move(this);
         }
 
-        public void MoveBetween(Room one, Room two)
+        void IMovable.Done()
         {
-            if (Current == one)
-            {
-                Current = two;
-            }
-            else if (Current == two)
-            {
-                Current = one;
-            }
-            else
-            {
-                throw new InvalidOperationException("Player is not located in either room one or two.");
-            }
+            onDone();
         }
 
-        public void Wait()
+        void IMovable.MoveTo(IMovePlayer room)
+        {
+            if (room == null) { throw new ArgumentNullException("room", "room is null."); }
+
+            current = room;
+
+            onCurrentChanged();
+        }
+
+        void IMovable.Wait()
         {
             onWait();
         }

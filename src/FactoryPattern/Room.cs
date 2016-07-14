@@ -2,50 +2,91 @@
 
 namespace FactoryPattern
 {
-    public class Room
+    public class Room : IMovePlayer
     {
-        private readonly Wall north;
-        private readonly Wall east;
-        private readonly Wall south;
-        private readonly Wall west;
+        private Wall north;
+        private Wall east;
+        private Wall south;
+        private Wall west;
 
-        public Room(int id, Wall north, Wall east, Wall south, Wall west)
+        public Room(int id)
         {
             Id = id;
-            this.north = north;
-            this.east = east;
-            this.south = south;
-            this.west = west;
+
+            north = new SolidWall();
+            east = new SolidWall();
+            south = new SolidWall();
+            west = new SolidWall();
         }
 
         public int Id { get; private set; }
 
-        public void MoveNorth(Player player)
+        public Wall North
         {
-            if (player == null) { throw new ArgumentNullException("player", "player is null."); }
-
-            north.Move(player);
+            get { return north; }
         }
 
-        public void MoveEast(Player player)
+        public Wall East
         {
-            if (player == null) { throw new ArgumentNullException("player", "player is null."); }
-
-            east.Move(player);
+            get { return east; }
         }
 
-        public void MoveSouth(Player player)
+        public Wall South
         {
-            if (player == null) { throw new ArgumentNullException("player", "player is null."); }
-
-            south.Move(player);
+            get { return south; }
         }
 
-        public void MoveWest(Player player)
+        public Wall West
         {
-            if (player == null) { throw new ArgumentNullException("player", "player is null."); }
+            get { return west; }
+        }
 
-            west.Move(player);
+        public void ConnectToNorth(Room other)
+        {
+            if (other == null) { throw new ArgumentNullException("other", "other is null."); }
+
+            north = new OpenWall(other);
+        }
+
+        public void ConnectToEast(Room other)
+        {
+            if (other == null) { throw new ArgumentNullException("other", "other is null."); }
+
+            east = new OpenWall(other);
+        }
+
+        public void ConnectToSouth(Room other)
+        {
+            if (other == null) { throw new ArgumentNullException("other", "other is null."); }
+
+            south = new OpenWall(other);
+        }
+
+        public void ConnectToWest(Room other)
+        {
+            if (other == null) { throw new ArgumentNullException("other", "other is null."); }
+
+            west = new OpenWall(other);
+        }
+
+        public void ExitToNorth()
+        {
+            north = new Exit();
+        }
+
+        public void ExitToEast()
+        {
+            east = new Exit();
+        }
+
+        public void ExitToSouth()
+        {
+            south = new Exit();
+        }
+
+        public void ExitToWest()
+        {
+            west = new Exit();
         }
     }
 }

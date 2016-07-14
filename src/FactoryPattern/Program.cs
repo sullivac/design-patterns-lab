@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FactoryPattern
 {
@@ -10,6 +8,9 @@ namespace FactoryPattern
     {
         private static void Main(string[] args)
         {
+            var client = new AbstractFactoryClient(new MazeClient());
+
+            client.Execute();
         }
     }
 }

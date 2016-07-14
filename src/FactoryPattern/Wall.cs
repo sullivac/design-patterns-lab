@@ -1,15 +1,16 @@
 ﻿using System;
+
 namespace FactoryPattern
 {
     public abstract class Wall
     {
-        protected Wall(int id)
+        public void Move(IMovable movable)
         {
-            Id = id;
+            if (movable == null) { throw new ArgumentNullException("movable", "movable is null."); }
+
+            MoveInternal(movable);
         }
 
-        public int Id { get; private set; }
-
-        public abstract void Move(Player player);
+        protected abstract void MoveInternal(IMovable movable);
     }
 }

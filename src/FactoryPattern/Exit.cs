@@ -1,19 +1,10 @@
-﻿using System;
-
-namespace FactoryPattern
+﻿namespace FactoryPattern
 {
     public class Exit : Wall
     {
-        public Exit(int id)
-            : base(id)
+        protected override void MoveInternal(IMovable movable)
         {
-        }
-
-        public override void Move(Player player)
-        {
-            if (player == null) { throw new ArgumentNullException("player", "player is null."); }
-
-            player.Done();
+            movable.Done();
         }
     }
 }

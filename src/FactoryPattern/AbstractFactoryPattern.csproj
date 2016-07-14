@@ -41,13 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractFactoryClient.cs" />
     <Compile Include="Exit.cs" />
+    <Compile Include="IMovable.cs" />
+    <Compile Include="IMovePlayer.cs" />
+    <Compile Include="ICreateMazes.cs" />
+    <Compile Include="MazeClient.cs" />
     <Compile Include="OpenWall.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="SimpleMazeFactory.cs" />
     <Compile Include="SolidWall.cs" />
+    <Compile Include="SnakeSquareMazeFactory.cs" />
     <Compile Include="Wall.cs" />
   </ItemGroup>
   <ItemGroup>
