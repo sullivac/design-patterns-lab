@@ -8,7 +8,7 @@ namespace Lab
         public string LastName { get; set; }
         public int SemesterHours { get; set; }
         public string UserId { get; set; }
-        public string EmailAdress { get; set; }
+        public string EmailAddress { get; set; }
 
         private List<Course> _courses = new List<Course>();
 

@@ -12,7 +12,7 @@ namespace Lab
                 LastName = "Sites",
                 UserId = "FRE",
                 SemesterHours = 20,
-                EmailAdress = "tsites@gmail.com"
+                EmailAddress = "tsites@gmail.com"
             },
             new Student
             {
@@ -20,7 +20,7 @@ namespace Lab
                 LastName = "Thompson",
                 UserId = "SOP",
                 SemesterHours = 40,
-                EmailAdress = "peggy1218@aol.com"
+                EmailAddress = "peggy1218@aol.com"
             },
             new Student
             {
@@ -28,7 +28,7 @@ namespace Lab
                 LastName = "Ramos",
                 SemesterHours = 70,
                 UserId = "JUN",
-                EmailAdress = "tramos@gmail.com"
+                EmailAddress = "tramos@gmail.com"
             },
             new Student
             {
@@ -36,7 +36,7 @@ namespace Lab
                 LastName = "Belcher",
                 SemesterHours = 120,
                 UserId = "SEN",
-                EmailAdress = "belcherisawesome@gmail.com"
+                EmailAddress = "belcherisawesome@gmail.com"
             },
             new Student
             {
@@ -44,7 +44,7 @@ namespace Lab
                 LastName = "Belcher",
                 SemesterHours = 120,
                 UserId = "SEN2",
-                EmailAdress = "belcher@foodnetwork.com"
+                EmailAddress = "belcher@foodnetwork.com"
 
             }
         };

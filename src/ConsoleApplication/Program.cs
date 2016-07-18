@@ -1,7 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
+using System.Reflection;
 
 namespace Lab
 {
@@ -16,6 +17,8 @@ namespace Lab
         {
             StudentDatabase studentDatabase = new StudentDatabase();
             CourseDatabase courseDatabase = new CourseDatabase();
+
+            InitializeMailSettings();
 
             //100 level courses
             Student freshman = studentDatabase.Students.FirstOrDefault(s => s.UserId == "FRE");
@@ -58,53 +61,47 @@ namespace Lab
                 LastName = "Mapel",
                 FirstName = "Robert",
                 UserId = "RMAPLE",
-                EmailAdress = "bob.maple@gmail.com"
+                EmailAddress = "bob.maple@gmail.com"
             };
 
             if (robertMapel.LastName.Length > 0 && robertMapel.FirstName.Length > 0)
             {
                 studentDatabase.AddStudent(robertMapel);
-                if (robertMapel.EmailAdress.Length > 0 && robertMapel.EmailAdress.Contains("@"))
+                if (robertMapel.EmailAddress.Length > 0 && robertMapel.EmailAddress.Contains("@"))
                 {
-                    //The SMTP server isn't available. Can we create a class around this logic?
-                    //using (SmtpClient smtpClient = new SmtpClient())
-                    //{
-                    //    smtpClient.Timeout = 3000;
-                    //    smtpClient.Credentials = new NetworkCredential();
-                    //    smtpClient.Send(
-                    //        "registration@centareu.edu", 
-                    //        robertMapel.EmailAddress, 
-                    //        "Registration Complete",
-                    //        "");
-                    //}    
-                }  
+                    using (SmtpClient smtpClient = new SmtpClient())
+                    {
+                        smtpClient.Send(
+                            "registration@centareu.edu",
+                            robertMapel.EmailAddress,
+                            "Registration Complete",
+                            "");
+                    }
+                }
             }
 
-           Student jamesSpruce = new Student
-            {
-                SemesterHours = 0,
-                LastName = "Spruce",
-                FirstName = "James",
-                UserId = "JSPRUCE",
-                EmailAdress = "james.spruce@yahoo.com"
-            };
+            Student jamesSpruce = new Student
+             {
+                 SemesterHours = 0,
+                 LastName = "Spruce",
+                 FirstName = "James",
+                 UserId = "JSPRUCE",
+                 EmailAddress = "james.spruce@yahoo.com"
+             };
             if (jamesSpruce.LastName.Length > 0 && jamesSpruce.FirstName.Length > 0)
             {
                 studentDatabase.AddStudent(jamesSpruce);
-                if (jamesSpruce.EmailAdress.Length > 0 && jamesSpruce.EmailAdress.Contains("@"))
+                if (jamesSpruce.EmailAddress.Length > 0 && jamesSpruce.EmailAddress.Contains("@"))
                 {
-                    //The SMTP server isn't available. Can we create a class around this logic?
-                    //using (SmtpClient smtpClient = new SmtpClient())
-                    //{
-                    //    smtpClient.Timeout = 3000;
-                    //    smtpClient.Credentials = new NetworkCredential();
-                    //    smtpClient.Send(
-                    //        "registration@centareu.edu", 
-                    //        jamesSpruce.EmailAdress, 
-                    //        "Registration Complete",
-                    //        "");
-                    //}    
-                }  
+                    using (SmtpClient smtpClient = new SmtpClient())
+                    {
+                        smtpClient.Send(
+                            "registration@centareu.edu",
+                            jamesSpruce.EmailAddress,
+                            "Registration Complete",
+                            "");
+                    }
+                }
             }
         }
 
@@ -143,6 +140,35 @@ namespace Lab
             {
                 student.AddCourse(course);
             }
+        }
+
+        private static void InitializeMailSettings()
+        {
+            var mailPath = new DirectoryInfo("mail");
+            if (!mailPath.Exists)
+            {
+                mailPath.Create();
+            }
+
+            BindingFlags instanceFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            PropertyInfo prop;
+            object mailConfiguration, smtp, specifiedPickupDirectory;
+
+            // get static internal property: MailConfiguration
+            prop = typeof(SmtpClient).GetProperty("MailConfiguration", BindingFlags.Static | BindingFlags.NonPublic);
+            mailConfiguration = prop.GetValue(null, null);
+
+            // get internal property: Smtp
+            prop = mailConfiguration.GetType().GetProperty("Smtp", instanceFlags);
+            smtp = prop.GetValue(mailConfiguration, null);
+
+            // get internal property: SpecifiedPickupDirectory
+            prop = smtp.GetType().GetProperty("SpecifiedPickupDirectory", instanceFlags);
+            specifiedPickupDirectory = prop.GetValue(smtp, null);
+
+            // get private field: pickupDirectoryLocation, then set it to the supplied path
+            FieldInfo field = specifiedPickupDirectory.GetType().GetField("pickupDirectoryLocation", instanceFlags);
+            field.SetValue(specifiedPickupDirectory, mailPath.FullName);
         }
     }
 }
