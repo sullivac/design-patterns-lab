@@ -7,7 +7,7 @@
     <ProjectGuid>{010121D4-CC9F-4700-9D82-F99261D02817}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleApplication</RootNamespace>
+    <RootNamespace>Lab</RootNamespace>
     <AssemblyName>ConsoleApplication</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -43,8 +43,13 @@
   <ItemGroup>
     <Compile Include="Course.cs" />
     <Compile Include="CourseDatabase.cs" />
+    <Compile Include="DefaultCourseValidatorFactory.cs" />
+    <Compile Include="FreshmanCourseValidator.cs" />
+    <Compile Include="ICreateCourseValidator.cs" />
+    <Compile Include="IValidateCourse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SophmoreCourseValidator.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="StudentDatabase.cs" />
   </ItemGroup>

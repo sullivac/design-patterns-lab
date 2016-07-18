@@ -107,36 +107,8 @@ namespace Lab
 
         public static void AddCourse(Student student, Course course)
         {
-            bool isValid = true;
-            int courseLevel = course.CourseLevel;
-            int semesterHours = student.SemesterHours;
-
-            if (courseLevel >= 200 && courseLevel < 300)
-            {
-                if (semesterHours < 32)
-                {
-                    Console.WriteLine("Need a sophmore standing");
-                    isValid = false;
-                }
-            }
-            else if (courseLevel >= 300 && courseLevel < 400)
-            {
-                if (semesterHours < 64)
-                {
-                    Console.WriteLine("Need a junior standing");
-                    isValid = false;
-                }
-            }
-            else
-            {
-                if (semesterHours < 96)
-                {
-                    Console.WriteLine("Need a senior standing");
-                    isValid = false;
-                }
-            }
-
-            if (isValid)
+            ICreateCourseValidator factory = new DefaultCourseValidatorFactory();
+            if (factory.CreateValidator(student).Validate(course))
             {
                 student.AddCourse(course);
             }

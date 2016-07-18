@@ -55,7 +55,7 @@ namespace StrategyPattern
                 throw new InvalidOperationException("No numbers entered.");
             }
 
-            foreach (var sorter in sorters)
+            foreach (ISort<int> sorter in sorters)
             {
                 var sorted = sorter.Sort(numbers);
 

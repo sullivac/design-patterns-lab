@@ -3,6 +3,21 @@ using System.Collections.Generic;
 
 namespace CompositeExample
 {
+    class LoggingChannel : IChannel
+    {
+        private readonly IChannel channel;
+        public LoggingChannel(IChannel channel)
+        {
+            this.channel = channel;
+        }
+
+        public void Send(string message)
+        {
+            channel.Send(message);
+
+            Console.WriteLine("Message Sent!");
+        }
+    }
     class CompositeChannel : IChannel
     {
         private readonly List<IChannel> channels;

@@ -17,9 +17,9 @@ namespace CompositeExample
         static void Main(string[] args)
         {
             var compositeChannel = new CompositeChannel();
-            compositeChannel.Add(new ConsoleChannel());
-            compositeChannel.Add(new FileChannel(new FileInfo("output.txt")));
-            compositeChannel.Add(new FileChannel(new FileInfo("other.txt")));
+            compositeChannel.Add(new LoggingChannel(new ConsoleChannel()));
+            compositeChannel.Add(new LoggingChannel(new FileChannel(new FileInfo("output.txt"))));
+            compositeChannel.Add(new LoggingChannel(new FileChannel(new FileInfo("other.txt"))));
 
             new Program(compositeChannel).Execute();
         }
